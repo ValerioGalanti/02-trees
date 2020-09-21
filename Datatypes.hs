@@ -23,7 +23,7 @@ nextWeekday Saturday = Monday
 nextWeekday Sunday = Monday
 
 twoBusinessDays :: Day -> Day
-twoBusinessDays d = undefined
+twoBusinessDays = nextWeekday . nextWeekday
 
 data Shape
   = Circle Double Double Double
@@ -50,7 +50,7 @@ x1 = x point1
 distFromOrigin :: Point -> Double
 distFromOrigin Point {x = px, y = py} = sqrt (px * px + py * py)
 
-distFromOrigin' p = undefined
+distFromOrigin' p = sqrt(x p * x p + y p * y p)
 
 distFromOrigin'' Point {x = x, y = y} = sqrt (x * x + y * y)
 

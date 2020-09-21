@@ -23,7 +23,7 @@ all1 _ [] = True
 all1 p (x : xs) = p x && all1 p xs
 
 all :: (a -> Bool) -> [a] -> Bool
-all p = undefined
+all p = foldr (\x y-> p x && y) True
 
 testAll :: Test
 testAll =
@@ -40,7 +40,9 @@ last1 (x : xs) = case xs of
   _ -> last1 xs
 
 last :: [a] -> Maybe a
-last = undefined
+last = foldr (\x y -> case y of 
+  Nothing -> Just x
+  Just y -> Just y) Nothing 
 
 testLast :: Test
 testLast =
@@ -51,7 +53,7 @@ testLast =
       ]
 
 filter :: (a -> Bool) -> [a] -> [a]
-filter p = undefined
+filter p = foldr (\x y -> if p x then x : y else y) []
 
 testFilter :: Test
 testFilter =
@@ -68,7 +70,8 @@ reverse1 l = aux l []
     aux (x : xs) = \ys -> aux xs (x : ys)
 
 reverse :: [a] -> [a]
-reverse l = undefined
+-- reverse = foldl (flip (:)) []
+reverse = foldr (\x y -> y ++ [x]) []
 
 testReverse :: Test
 testReverse =
